@@ -1,4 +1,4 @@
-package de.otto.awsegressfilter.controller;
+package de.otto.awsegressfilter.model;
 
 public enum Region {
     EU,

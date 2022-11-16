@@ -1,5 +1,6 @@
 package de.otto.awsegressfilter.controller;
 
+import de.otto.awsegressfilter.model.Region;
 import de.otto.awsegressfilter.persistence.EgressIpRepository;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
