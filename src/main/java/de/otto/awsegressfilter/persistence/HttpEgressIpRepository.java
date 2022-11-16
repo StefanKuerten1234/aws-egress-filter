@@ -22,9 +22,11 @@ public class HttpEgressIpRepository implements EgressIpRepository {
 
     @Override
     public Flux<String> findByRegion(Region region) {
+        System.out.println("XXX" + region.toString());
         return webClient.get().retrieve().bodyToMono(ApiResponse.class)
                 .map(ApiResponse::egressIps)
                 .flatMapMany(Flux::fromIterable)
+                .filter(egressIp -> region.equals(Region.ALL) || egressIp.region().toUpperCase().startsWith(region.toString()))
                 .map(EgressIp::toString);
     }
 }
