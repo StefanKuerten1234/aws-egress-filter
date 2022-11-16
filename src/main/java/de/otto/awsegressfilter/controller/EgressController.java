@@ -17,7 +17,7 @@ public class EgressController {
     }
 
     @GetMapping(produces = MediaType.TEXT_PLAIN_VALUE)
-    public Flux<String> egressAdresses(@RequestParam String region) {
+    public Flux<String> egressAdresses(@RequestParam(name = "region") Region region) {
         return egressIpRepository.findAll()
                 .map(egressIp -> egressIp.concat(System.lineSeparator()));
     }

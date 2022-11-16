@@ -2,6 +2,8 @@ package de.otto.awsegressfilter.controller;
 
 import de.otto.awsegressfilter.persistence.EgressIpRepository;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -41,5 +43,21 @@ class EgressControllerIntegrationTest {
                         127.0.0.1
                         255.255.255.255
                         """);
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"ALL", "EU", "US", "AP", "CN", "SA", "AF", "CA"})
+    void shouldAllowValidRegion(String region) {
+        when(egressIpRepository.findAll()).thenReturn(Flux.fromIterable(List.of("127.0.0.1")));
+        webClient.get().uri(String.format("/?region=%s", region)).exchange()
+                .expectStatus().isOk();
+    }
+
+    @Test
+    void shouldNotAllowInvalidRegion() {
+        when(egressIpRepository.findAll()).thenReturn(Flux.fromIterable(List.of("127.0.0.1")));
+        webClient.get().uri("/?region=INVALID").exchange()
+                .expectStatus().isBadRequest();
+
     }
 }
