@@ -18,5 +18,4 @@ Web Application that delivers all current AWS egress IP addresses, filtered by r
 
 • The code should be stored in github
 
-• github users  stefankuerten1234, sergey-kolodiev should have read access to the code 
 
