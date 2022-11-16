@@ -3,6 +3,7 @@ Web Application that delivers all current AWS egress IP addresses, filtered by r
 
 ## Prerequisites
 * JDK >= 17
+* Docker
 
 ## Usage
 ### Run locally
@@ -21,6 +22,11 @@ Valid regions are EU, US, AP, CN, SA, AF, CA
 ### Run tests
 ```shell
 ./gradlew test
+```
+
+### Build Docker Image
+```shell
+./gradlew jibDockerBuild
 ```
 
 
