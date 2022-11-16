@@ -1,6 +1,29 @@
 # AWS Egress Filter
 Web Application that delivers all current AWS egress IP addresses, filtered by region
 
+## Prerequisites
+* JDK >= 17
+
+## Usage
+### Run locally
+After starting the application locally with
+```shell
+./gradlew bootRun
+```
+it will run on port 8080, listening to connections (Make sure the port is not in use!)
+Egress IP addresses of AWS can be fetched by calling
+```shell
+curl "http://localhost:8080?region=ALL"
+```
+Valid regions are EU, US, AP, CN, SA, AF, CA
+
+
+### Run tests
+```shell
+./gradlew test
+```
+
+
 ## Task definition
 • A Spring Boot Application is created
 
