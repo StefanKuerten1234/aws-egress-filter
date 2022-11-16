@@ -46,11 +46,12 @@ class HttpEgressIpRepositoryTest {
         String responseBody = Files.readString(path, Charset.defaultCharset());
 
         mockBackEnd.enqueue(new MockResponse()
+                .addHeader("Content-Type", "application/json")
                 .setBody(responseBody));
 
         Flux<String> actual = httpEgressIpRepository.findByRegion(Region.ALL);
         StepVerifier.create(actual)
-                .expectNextCount(55_436)
+                .expectNextCount(9_238)
                 .verifyComplete();
     }
 }
