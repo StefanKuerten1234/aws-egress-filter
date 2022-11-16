@@ -1,6 +1,7 @@
 package de.otto.awsegressfilter.controller;
 
 import de.otto.awsegressfilter.persistence.EgressIpRepository;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,7 +16,7 @@ public class EgressController {
         this.egressIpRepository = egressIpRepository;
     }
 
-    @GetMapping
+    @GetMapping(produces = MediaType.TEXT_PLAIN_VALUE)
     public Flux<String> egressAdresses(@RequestParam String region) {
         return egressIpRepository.findAll()
                 .map(egressIp -> egressIp.concat(System.lineSeparator()));

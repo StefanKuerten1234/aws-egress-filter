@@ -12,6 +12,7 @@ import reactor.core.publisher.Flux;
 import java.util.List;
 
 import static org.mockito.Mockito.when;
+import static org.springframework.http.MediaType.TEXT_PLAIN;
 
 @SpringBootTest
 @AutoConfigureWebTestClient
@@ -24,7 +25,7 @@ class EgressControllerIntegrationTest {
     EgressIpRepository egressIpRepository;
 
     @Test
-    void shouldReturnNotFound() {
+    void shouldReturnBadRequest() {
         when(egressIpRepository.findAll()).thenReturn(Flux.empty());
         webClient.get().uri("/").exchange()
                 .expectStatus().isBadRequest();
@@ -35,6 +36,7 @@ class EgressControllerIntegrationTest {
         when(egressIpRepository.findAll()).thenReturn(Flux.fromIterable(List.of("127.0.0.1", "255.255.255.255")));
         webClient.get().uri("/?region=ALL").exchange()
                 .expectStatus().isOk()
+                .expectHeader().contentTypeCompatibleWith(TEXT_PLAIN)
                 .expectBody(String.class).isEqualTo("""
                         127.0.0.1
                         255.255.255.255
