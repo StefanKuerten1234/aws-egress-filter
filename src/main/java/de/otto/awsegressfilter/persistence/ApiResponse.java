@@ -18,13 +18,11 @@ public record ApiResponse(
 
     @JsonProperty("prefixes")
     public void unpackV4Prefixes(List<Map<String, Object>> prefixes) {
-        System.out.println(prefixes);
         prefixes.forEach(ip -> egressIps.add(new EgressIp((String) ip.get("ip_prefix"), (String) ip.get("region"))));
     }
 
     @JsonProperty("ipv6_prefixes")
     public void unpackV6Prefixes(List<Map<String, Object>> prefixes) {
-        System.out.println(prefixes);
         prefixes.forEach(ip -> egressIps.add(new EgressIp((String) ip.get("ipv6_prefix"), (String) ip.get("region"))));
     }
 }
